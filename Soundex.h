@@ -4,7 +4,6 @@
 #include "Soundex.h"
 #include <ctype.h>
 #include <string.h>
-
 char R(char c){
     if(c=='R'){
         return '6';
