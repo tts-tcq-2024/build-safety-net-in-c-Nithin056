@@ -1,34 +1,44 @@
 #include <gtest/gtest.h>
 #include "Soundex.h"
 
+TEST(SoundexTestsuite, ConstantsReplacedByDigits) {
+    char soundex[5];
+    generateSoundex("BX", soundex);
+    ASSERT_STREQ(soundex, "B200");
+}
+ 
+TEST(SoundexTestsuite, NonAlphabeticCharactersIgnored) {
+    char soundex[5];
+    generateSoundex("A1X", soundex);
+    ASSERT_STREQ(soundex, "A200");
+}
 
-TEST(SoudexTestsuite, ReplacesConsonantsWithAppropriateDigits) {
- //AAA
-  char soundex[5];
-  generateSoundex("AX", soundex);
- //ASSERT_EQ(soundex,"A200");
-  generateSoundex("AT", soundex);
- //ASSERT_EQ(soundex,"A300");
-   generateSoundex("BR", soundex);
- //ASSERT_EQ(soundex,"B600");
-   generateSoundex("CMXT", soundex);
- //ASSERT_EQ(soundex,"B523");
-  generateSoundex("GCDL", soundex);
- //ASSERT_EQ(soundex,"C234");
-  generateSoundex("ALRN", soundex);
- //ASSERT_EQ(soundex,"A465");
- generateSoundex("ALRU", soundex);
- //ASSERT_EQ(soundex,"A460");
- generateSoundex("BE", soundex);
- //ASSERT_EQ(soundex,"B000");
- generateSoundex("CI", soundex);
- //ASSERT_EQ(soundex,"C000");
- generateSoundex("DF", soundex);
- //ASSERT_EQ(soundex,"D100");
- generateSoundex("F0", soundex);
- //ASSERT_EQ(soundex,"F000");
- generateSoundex("BFP", soundex);
- //ASSERT_EQ(soundex,"B110");
- generateSoundex("", soundex);
- //ASSERT_EQ(soundex,"");
+TEST(SoundexTestsuite, HandlesEmptyString) {
+    char soundex[5];
+    generateSoundex("", soundex);
+    ASSERT_STREQ(soundex, "0000");
+}
+ 
+TEST(SoundexTestsuite,HandlesDifferentSoundexCodesForSameChar) {
+    char soundex[5];
+    generateSoundex("CUYHIJ", soundex);
+    ASSERT_STREQ(soundex, "C000");
+}
+ 
+TEST(SoundexTestsuite, HandlesVowelCharacters) {
+    char soundex[5];
+    generateSoundex("AEIOUHWY", soundex);
+    ASSERT_STREQ(soundex, "A000");
+}
+ 
+TEST(SoundexTestsuite, HandlesMultipleSameSoundexCodeCharacters) {
+    char soundex[5];
+    generateSoundex("YYYY", soundex);
+    ASSERT_STREQ(soundex, "Y000");
+}
+ 
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+
 }
