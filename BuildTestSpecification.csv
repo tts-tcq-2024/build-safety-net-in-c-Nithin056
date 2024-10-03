@@ -1,0 +1,8 @@
+﻿Test Case ID,Test Name,Input,Expected Output,Description
+TC1,ConstantsReplacedByDigits,"""BX""","""B200""","Tests if consonants B and X are correctly replaced by their respective Soundex codes, ignoring vowels and padding with zeroes."
+TC2,NonAlphabeticCharactersIgnored,"""A1X""","""A200""",Verifies that non-alphabetic characters (like 1) are ignored and don't affect the Soundex result.
+TC3,HandlesEmptyString,"""""","""0000""","Ensures that an empty string returns the default Soundex code of ""0000""."
+TC4,HandlesDifferentSoundexCodesForSameChar,"""CUYHIJ""","""C000""","Tests if repeated characters with the same Soundex code (like U, Y, H, I, and J) are handled correctly. Only the first character (C) matters."
+TC5,HandlesVowelCharacters,"""AEIOUHWY""","""A000""","Ensures that vowels and special characters like H, W, and Y are ignored after the first letter, returning a padded code of ""A000""."
+TC6,HandlesMultipleSameSoundexCodeCharacters,"""YYYY""","""Y000""","Verifies that consecutive characters which yield the same Soundex code (like Y) are not overrepresented, resulting in ""Y000"" (first letter + zero padding)."
+,,,,
